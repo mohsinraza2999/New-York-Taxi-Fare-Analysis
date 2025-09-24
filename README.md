@@ -28,7 +28,7 @@ The project workflow includes:
 6. **Evaluation** – Assessing model performance on test data
 
 ## 📁 Project Structure
-
+```
 ├── data/
 │   ├── raw/                  # Original dataset(s) from TLC
 │   ├── processed/            # Cleaned & transformed datasets
@@ -55,7 +55,7 @@ The project workflow includes:
 ├── requirements.txt          # Project dependencies
 ├── README.md                 # Project overview and instructions
 └── .gitignore                # Files/folders to ignore in Git
-
+```
 
 ## 🔧 Installation
 
@@ -76,11 +76,11 @@ python scripts/train_model.py
 ```
 ## 📊 Sample Results
 
-MAE: X.XX
+MAE: 
 
-RMSE: X.XX
+RMSE: 
 
-R² Score: 0.XX
+R² Score: 0.86
 
 (Update with real values after training models)
 
