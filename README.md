@@ -42,9 +42,11 @@ The project workflow includes:
 │   └── 05_model_evaluation.ipynb
 │
 ├── scripts/
-│   ├── preprocessing.py      # Data cleaning and feature engineering
-│   ├── train_model.py        # ML training pipeline
-│   └── evaluate_model.py     # Evaluation & metrics
+│   ├── preprocessing.py          # Clean and transform data
+│   ├── feature_engineering.py    # Feature engineering functions
+│   ├── train_model.py            # Train and return model
+│   ├── evaluate_model.py         # Evaluate and save results
+│   └── plot_utils.py             # Visualization and saving plots
 │
 ├── models/                   # Saved ML models (e.g., .pkl files)
 │
@@ -52,6 +54,7 @@ The project workflow includes:
 │   ├── figures/              # Graphs and plots
 │   └── reports/              # Exported results or summaries
 │
+├── main.py                   # run and train the model
 ├── requirements.txt          # Project dependencies
 ├── README.md                 # Project overview and instructions
 └── .gitignore                # Files/folders to ignore in Git
@@ -62,8 +65,8 @@ The project workflow includes:
 To run this project locally:
 
 ```bash
-git clone https://github.com/yourusername/nyc-taxi-fare-prediction.git
-cd nyc-taxi-fare-prediction
+git clone https://github.com/mohsinraza2999/New-York-Taxi-Fare-Analysis.git
+cd New-York-Taxi-Fare-Analysis
 pip install -r requirements.txt
 ```
 ## 🚀 Usage
@@ -72,7 +75,7 @@ Run individual Jupyter notebooks in the notebooks/ directory to explore the anal
 
 To train a model from script:
 ``` bash
-python scripts/train_model.py
+uvicorn main:app --reload
 ```
 ## 📊 Sample Results
 
