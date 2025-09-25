@@ -27,19 +27,12 @@ def save_all_plots(final_df, y_test, y_pred, residuals, output_dir='outputs/figu
     plt.savefig(f"{output_dir}/residuals_vs_predicted.png")
     plt.clf()
 
-    # Correlation matrix
-    corr_matrix = final_df.corr()
-    plt.figure(figsize=(10, 8))
-    sns.heatmap(corr_matrix, annot=True, cmap='coolwarm')
-    plt.title("Correlation Heatmap")
-    plt.tight_layout()
-    plt.savefig(f"{output_dir}/correlation_heatmap.png")
-    plt.clf()
 
     # Pairplot
     sns.pairplot(final_df[['fare_amount', 'trip_distance', 'mean_distance']])
     plt.savefig(f"{output_dir}/pairplot.png")
     plt.clf()
+
 
     # Boxplots
     fig, axes = plt.subplots(1, 3, figsize=(15, 3))
@@ -50,3 +43,15 @@ def save_all_plots(final_df, y_test, y_pred, residuals, output_dir='outputs/figu
     plt.tight_layout()
     plt.savefig(f"{output_dir}/boxplots_outliers.png")
     plt.clf()
+
+    # Correlation matrix
+    """  plt.figure(figsize=(12, 10))
+    sns.heatmap(final_df.corr(), annot=True, cmap='coolwarm')
+    plt.title("Correlation Heatmap")
+    plt.tight_layout()
+    plt.savefig(f"{output_dir}/correlation_heatmap.png")
+    plt.clf()"""
+
+   
+
+   

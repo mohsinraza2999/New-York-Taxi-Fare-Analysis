@@ -1,42 +1,55 @@
 from fastapi import FastAPI
+from scripts import predict
+from pydantic import BaseModel
+from typing import Optional
 import pandas as pd
-from scripts import preprocessing, feature_engineering, train_model, evaluate_model, plot_utils
+from scripts import preprocessing, feature_engineering, train_model, evaluate, plot_utils
 
 app = FastAPI(title="NYC Taxi Fare Prediction API")
 
 @app.get("/")
-def read_root():
+def home():
     return {"message": "NYC Taxi Fare Prediction API is running."}
 
 @app.get("/run")
 def run_pipeline():
     try:
-        # Load raw data
-        df = pd.read_csv("data/raw/your_file.csv")  # Replace with actual file path
-
-        # Clean and preprocess
+        df = pd.read_csv("data/raw/2017_Yellow_Taxi_Trip_Data.csv")
         df = preprocessing.load_and_clean_data(df)
         df = feature_engineering.add_features(df)
-
-        # Train model
         model, scaler, X_test_scaled, y_test = train_model.train_model(df)
-
-        # Evaluate
-        results_df, mse, r2 = evaluate_model.evaluate_model(model, X_test_scaled, y_test)
-
-        # Save plots
+        results_df, mse, r2 = evaluate.evaluate_model(model, X_test_scaled, y_test)
         plot_utils.save_all_plots(df, y_test, model.predict(X_test_scaled), y_test.values - model.predict(X_test_scaled))
 
         return {
             "status": "✅ Pipeline executed successfully",
             "mse": round(mse, 2),
-            "r2_score": round(r2, 3),
-            "saved_files": {
-                "metrics": "outputs/reports/metrics.json",
-                "figures": "outputs/figures/",
-                "model": "models/reg_model.pkl"
-            }
+            "r2_score": round(r2, 3)
         }
 
     except Exception as e:
         return {"status": "❌ Error", "message": str(e)}
+
+
+# -------------------------
+# PREDICTION ENDPOINT
+# -------------------------
+
+class PredictionInput(BaseModel):
+    tpep_pickup_datetime: str
+    tpep_dropoff_datetime: str
+    passenger_count: Optional[int] = 1
+    trip_distance: float
+    PULocationID: str
+    DOLocationID: str
+    payment_type: Optional[str] = None
+    fare_amount: Optional[float] = None
+    tip_amount: Optional[float] = None
+    tolls_amount: Optional[float] = None
+    total_amount: Optional[float] = None
+
+@app.post("/predict")
+def predict_fare(input_data: PredictionInput):
+    input_dict = input_data.dict()
+    result = predict.make_prediction(input_dict)
+    return result

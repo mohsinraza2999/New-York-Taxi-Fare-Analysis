@@ -20,3 +20,20 @@ rad.json
 *.flf
 #Test results file
 TestResults.xml
+# Python
+*.pyc
+__pycache__/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb~*
+
+# Data
+data/processed/
+data/external/
+models/
+outputs/
+
+# Environment
+.env
+*.env
