@@ -8,8 +8,8 @@ WORKDIR /app
 COPY . .
 
 # Install dependencies
-#RUN pip install --upgrade pip
-#RUN pip install -r requirements.txt
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
 # Expose FastAPI port
 EXPOSE 8000

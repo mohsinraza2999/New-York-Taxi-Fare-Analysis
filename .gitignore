@@ -33,7 +33,6 @@ data/processed/
 data/external/
 models/
 outputs/
-
 # Environment
 .env
 *.env
