@@ -79,9 +79,7 @@ uvicorn main:app --reload
 ```
 ## 📊 Sample Results
 
-MAE: 
-
-RMSE: 
+MAE: 11.16
 
 R² Score: 0.86
 
