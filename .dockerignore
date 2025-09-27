@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*.ipynb
+.env
+*.log
+outputs/
+data/
+notebooks/
+.gitignore
+LICENSE
+pipeline/
+test/
+README.md
+.git
