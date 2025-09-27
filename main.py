@@ -53,3 +53,7 @@ def predict_fare(input_data: PredictionInput):
     input_dict = input_data.dict()
     result = predict.make_prediction(input_dict)
     return result
+
+if __name__ == "_ _main__":
+    import uvicorn
+    uvicorn.run("main:main", host="0.0.0.0", port=8000, reload=True)
