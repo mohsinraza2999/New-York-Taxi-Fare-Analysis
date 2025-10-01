@@ -87,15 +87,15 @@ In this fictional scenario, the NYC TLC has tasked the Automatidata team with bu
 │
 ├── models/                   # Saved ML models (e.g., .pkl files)
 │
-├── outputs/
+├── test/
 │   ├── test_code.py          # Test Api
 |
-├── test/
+├── outputs/
 │   ├── figures/              # Graphs and plots
 │   └── reports/              # Exported results or summaries
 │
 ├── .dockerignore             # Files/folders to ignore in docker
-├── Dockerfile.txt            # Docker file to build docker image and containers
+├── Dockerfile                # Docker file to build docker image and containers
 ├── main.py                   # run and train the model
 ├── requirements.txt          # Project dependencies
 ├── README.md                 # Project overview and instructions
@@ -115,11 +115,11 @@ pip install -r requirements.txt
 
 Run individual Jupyter notebooks in the notebooks/ directory to explore the analysis and modeling steps.
 
-To Run a model from script:
+To Run the app:
 ``` bash
 python main.py
 ```
-Or build and run using docker
+Or build and run using docker:
 ``` bash
 docker build -t taxi-fare-app .
 docker run -p 8000:8000 taxi-fare-app
