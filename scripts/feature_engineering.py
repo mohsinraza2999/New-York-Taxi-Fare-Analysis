@@ -13,6 +13,12 @@ def add_features(df):
     dur_map = dur_group.to_dict()['duration']
     df['mean_duration'] = df['pickup_dropoff'].map(dur_map)
 
+
+
+#use to predict generous tips giver and for training
+
+    """
+    
     df['day'] = df['tpep_pickup_datetime'].dt.day_name()
     df['month'] = df['tpep_pickup_datetime'].dt.month_name()
     df['rush_hour'] = df['day'].apply(lambda x: 0 if x in ['Saturday', 'Sunday'] else 1)
@@ -21,6 +27,6 @@ def add_features(df):
         hour = row['tpep_pickup_datetime'].hour
         return 1 if (6 <= hour <= 10) and row['day'] not in ['Saturday', 'Sunday'] else 0
 
-    df['rush_hour'] = df.apply(rush_hourizer, axis=1)
+    df['rush_hour'] = df.apply(rush_hourizer, axis=1)"""
 
     return df

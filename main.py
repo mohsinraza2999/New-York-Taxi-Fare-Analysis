@@ -1,16 +1,23 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, Form
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from scripts import predict
-from pydantic import BaseModel
-from typing import Optional
 import pandas as pd
 from scripts import preprocessing, feature_engineering, train_model, evaluate, plot_utils
 
 app = FastAPI(title="NYC Taxi Fare Prediction API")
 
-@app.get("/")
-def home():
-    return {"message": "NYC Taxi Fare Prediction API is running."}
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
+templates = Jinja2Templates(directory="frontend")
 
+@app.get("/", response_class=HTMLResponse)
+async def welcome_page(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+# use this function to:
+    # Preprocess, Clean, Feature Engineering
+    # Training, Storing Results, Plots
 @app.get("/run")
 def run_pipeline():
     try:
@@ -35,25 +42,25 @@ def run_pipeline():
 # PREDICTION ENDPOINT
 # -------------------------
 
-class PredictionInput(BaseModel):
-    tpep_pickup_datetime: str
-    tpep_dropoff_datetime: str
-    passenger_count: Optional[int] = 1
-    trip_distance: float
-    PULocationID: str
-    DOLocationID: str
-    payment_type: Optional[str] = None
-    fare_amount: Optional[float] = None
-    tip_amount: Optional[float] = None
-    tolls_amount: Optional[float] = None
-    total_amount: Optional[float] = None
+@app.get("/form", response_class=HTMLResponse)
+async def prediction_form(request: Request):
+    return templates.TemplateResponse("predict.html", {"request": request})
+
 
 @app.post("/predict")
-def predict_fare(input_data: PredictionInput):
-    input_dict = input_data.dict()
-    result = predict.make_prediction(input_dict)
-    return result
+def predict_fare(request: Request,
+    trip_duration: float = Form(...),
+    trip_distance: float = Form(...),
+    pickup_location_id: str = Form(...),
+    dropoff_location_id: str = Form(...)):
+    
+    input_data={'duration': trip_duration,
+    'trip_distance': trip_distance,
+    'PULocationID': pickup_location_id,
+    'DOLocationID': dropoff_location_id}
+    result = predict.make_prediction(input_data)
+    return HTMLResponse(content=f"<h2>Estimated Fare: ${result['predicted_fare']}</h2><a href='/form'>Try Again</a>", status_code=200)
 
-if __name__ == "_ _main__":
+if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:main", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

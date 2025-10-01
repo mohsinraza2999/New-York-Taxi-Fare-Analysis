@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Taxi Fare Prediction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 2rem 3rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin: 0.5rem 0 0.2rem;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 0.6rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            border-color: #74b9ff;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            background: #0984e3;
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background: #74b9ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Predict Your Taxi Fare</h1>
+        <form action="/predict" method="post">
+            <label>Trip Duration (minutes):</label>
+            <input type="number" name="trip_duration" step="0.01" required>
+
+            <label>Trip Distance (miles):</label>
+            <input type="number" name="trip_distance" step="0.01" required>
+
+            <label>Pickup Location ID:</label>
+            <input type="number" name="pickup_location_id" required>
+
+            <label>Dropoff Location ID:</label>
+            <input type="number" name="dropoff_location_id" required>
+
+            <input type="submit" value="Predict Fare">
+        </form>
+    </div>
+</body>
+</html>
+

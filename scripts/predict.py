@@ -19,10 +19,10 @@ def make_prediction(input_data: dict):
     df = pd.DataFrame([input_data])
 
     # Generate pickup_dropoff
-    df_clean=load_and_clean_data(df)
+    #df_clean=load_and_clean_data(df)
 
     # Estimate duration
-    df_f=add_features(df_clean)
+    df_f=add_features(df)
 
     # Prepare features for prediction
     X = df_f[['trip_distance', 'mean_distance', 'duration']]  # Change based on your trained model
