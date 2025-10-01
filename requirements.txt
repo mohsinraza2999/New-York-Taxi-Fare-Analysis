@@ -6,4 +6,5 @@ scikit-learn
 matplotlib
 seaborn
 joblib
+httpx
 pytest
