@@ -6,5 +6,7 @@ scikit-learn
 matplotlib
 seaborn
 joblib
+jinja2
 httpx
+python-multipart
 pytest
